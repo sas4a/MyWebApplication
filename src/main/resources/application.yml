@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/todo_db
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update   # автоматически создаёт/обновляет таблицы
+    show-sql: true       # показывает SQL в консоли
+    properties:
+      hibernate:
+        format_sql: true # красиво форматирует SQL
+
+server:
+  port: 8080
