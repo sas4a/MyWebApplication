@@ -1,6 +1,5 @@
 package ru.anik.springtodo.mywebapplication.service;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -64,5 +63,14 @@ public class TaskServiceImpTest {
 
          verify(taskRepository).existsById(3L);
          verify(taskRepository).deleteById(3L);
+    }
+
+    @Test
+    void deleteTask_methodNeverUse(){
+        when(taskRepository.existsById(155L)).thenReturn(false);
+        assertThrows(RuntimeException.class, ()->service.deleteTask(155L));
+
+        verify(taskRepository).existsById(155L);
+        verify(taskRepository,never()).deleteById(anyLong());
     }
 }
