@@ -57,21 +57,12 @@ public class TaskServiceImpTest {
     }
 
 
-   /* //Тут еще домучаю тесты и этот доделаю или переделаю
-*//*    @Test
-    void deleteTask_shoudReturnSizeZero(){
-        Task task1 = new Task(6L,"Task6", "Wash dishes",
-                LocalDate.of(2025,9,17), TaskStatus.TODO);
-        when(taskRepository.deleteById(6L)).thenReturn()*//*
-    }*/
-//public void deleteTask(Long id) {
-//        if(!taskrepository.existsById(id)){
-//            throw new RuntimeException("Task not found with id: " + id);
-//        }
-//        taskrepository.deleteById(id);
-//    }
+    @Test
+    void deleteTask_ifHaveTask_ShoudCallMethodDelete(){
+         when(taskRepository.existsById(3L)).thenReturn(true);
+         service.deleteTask(3L);
 
-
-
-
+         verify(taskRepository).existsById(3L);
+         verify(taskRepository).deleteById(3L);
+    }
 }
