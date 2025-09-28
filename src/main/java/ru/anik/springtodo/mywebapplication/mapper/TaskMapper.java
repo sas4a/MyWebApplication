@@ -1,26 +1,21 @@
 package ru.anik.springtodo.mywebapplication.mapper;
 
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import ru.anik.springtodo.mywebapplication.dto.TaskDto;
 import ru.anik.springtodo.mywebapplication.entity.Task;
 
-public class TaskMapper {
-    public static TaskDto toDto(Task task) {
-        return TaskDto.builder().
-                id(task.getId()).
-                description(task.getDescription()).
-                title(task.getTitle()).
-                dueDate(task.getDueDate()).
-                status(task.getStatus()).
-                build();
-    }
+@Mapper(componentModel = "spring")
+public interface TaskMapper {
 
-    public static Task toEntity(TaskDto dto) {
-        return Task.builder().
-                id(dto.getId()).
-                title(dto.getTitle()).
-                description(dto.getDescription()).
-                dueDate(dto.getDueDate()).
-                status(dto.getStatus()).
-                build();
-    }
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "title", source = "title")
+    @Mapping(target = "description", source = "description")
+    @Mapping(target = "dueDate", source = "dueDate")
+    @Mapping(target = "status", source = "status")
+    TaskDto toDto(Task task);
+
+    @InheritInverseConfiguration
+    Task toEntity(TaskDto taskDto);
 }

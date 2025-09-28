@@ -1,16 +1,17 @@
 package ru.anik.springtodo.mywebapplication.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.anik.springtodo.mywebapplication.dto.TaskDto;
-import ru.anik.springtodo.mywebapplication.entity.Task;
+import ru.anik.springtodo.mywebapplication.dto.TaskPatchDto;
 import ru.anik.springtodo.mywebapplication.entity.TaskStatus;
 import ru.anik.springtodo.mywebapplication.service.TaskService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/tasks")
+@RequestMapping("api/v1/tasks")
 public class TaskController {
 
     private final TaskService taskService;
@@ -31,13 +32,18 @@ public class TaskController {
     }
 
     @PostMapping
-    public TaskDto createTask(@RequestBody TaskDto taskDto){
+    public TaskDto createTask(@Valid @RequestBody TaskDto taskDto){
         return taskService.createTask(taskDto);
     }
 
     @PutMapping("/{id}")
-    public TaskDto updateTask(@PathVariable Long id, @RequestBody TaskDto taskDto){
+    public TaskDto updateTask(@PathVariable Long id, @Valid @RequestBody TaskDto taskDto){
         return taskService.updateTask(id,taskDto);
+    }
+
+    @PatchMapping("/{id}")
+    public TaskDto patchTask(@PathVariable Long id, @RequestBody TaskPatchDto patchDto){
+        return taskService.patchTask(id, patchDto);
     }
 
     @DeleteMapping("/{id}")

@@ -41,6 +41,7 @@ public class TaskServiceImpTest {
         assertEquals(3, listDto.size());
         assertEquals("Task7", listDto.get(1).getTitle());
         assertEquals(9L, listDto.get(2).getId());
+        assertEquals(LocalDate.of(2025,9,10),listDto.get(2).getDueDate());
 
         verify(taskRepository, times(1)).findAll();
     }
